@@ -7,5 +7,10 @@ class cloud extends MovableObject {
     super().loadImage("img/background/PNG/City2/Bright/cloud-dark.png");
 
     this.x = -200 + Math.random() * 800; // Zahl zwischen 200 und 700
+    this.animate();
+  }
+
+  animate() {
+    this.moveLeft();
   }
 }
