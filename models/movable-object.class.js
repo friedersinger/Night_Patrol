@@ -10,6 +10,7 @@ class MovableObject {
   otherDirection = false;
   speedY = 0;
   acceleration = 2.5;
+  energy = 100;
 
   applyGravity() {
     setInterval(() => {
@@ -43,10 +44,19 @@ class MovableObject {
       // HTML canvas rect() Method
       ctx.beginPath();
       ctx.lineWidth = "5";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "red";
       ctx.rect(this.x, this.y, this.width, this.height);
       ctx.stroke();
     }
+  }
+
+  isColliding(mo) {
+    return (
+      this.x + this.width > mo.x &&
+      this.y + this.height > mo.y &&
+      this.x < mo.x &&
+      this.y < mo.y + mo.height
+    );
   }
 
   /**
