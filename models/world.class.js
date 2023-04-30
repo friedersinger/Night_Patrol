@@ -1,22 +1,11 @@
 class World {
   character = new Character();
-  enemies = [new Gangster(), new Gangster(), new Gangster()];
-  clouds = [new cloud()];
-  backgroundObjects = [
-    new BackgroundObject("img/background/PNG/City2/Bright/Sky.png", 0),
-    new BackgroundObject("img/background/PNG/City2/Bright/back.png", 0),
-    new BackgroundObject("img/background/PNG/City2/Bright/houses3.png", 0),
-    new BackgroundObject("img/background/PNG/City2/Bright/houses1.png", 0),
-    new BackgroundObject(
-      "img/background/PNG/City2/Bright/minishop&callbox.png",
-      0
-    ),
-    new BackgroundObject("img/background/PNG/City2/Bright/road&lamps.png", 0),
-  ];
+  level = level1;
 
   canvas;
   ctx;
   keyboard;
+  camera_x = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -33,10 +22,16 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.addObjectsToMap(this.backgroundObjects);
-    this.addObjectsToMap(this.clouds);
+    this.ctx.translate(this.camera_x, 0);
+
+    this.addObjectsToMap(this.level.backgroundObjects);
+    this.addObjectsToMap(this.level.clouds);
+
     this.addToMap(this.character);
-    this.addObjectsToMap(this.enemies);
+    this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.level.enemies);
+
+    this.ctx.translate(-this.camera_x, 0);
 
     // Draw() wird immer wieder aufgerufen
     let self = this;
