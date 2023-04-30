@@ -27,6 +27,16 @@ class MovableObject {
     });
   }
 
+  playAnimation(images) {
+    // WALK ANIMATION
+    // % - is the rest modulo
+    let i = this.currentImage % this.IMAGES_WALKING.length; // let i = 8 % 7; => 1, Rest 1 =>
+    // i = 0, 1, 2, 3, 4, 5, 6 , 7, 0, 1, 2, 3, 4, 5, 6, 7, 0
+    let path = images[i];
+    this.img = this.imageCache[path];
+    this.currentImage++;
+  }
+
   moveRight() {
     console.log("Moving right");
   }

@@ -1,5 +1,5 @@
 const level1 = new Level(
-  [new Gangster(), new Gangster(), new Gangster()],
+  [new Gangster(), new Gangster(), new Gangster(), new Endboss()],
   [new cloud()],
   [
     new BackgroundObject("img/background/PNG/City2/Bright/Sky.png", -720),
