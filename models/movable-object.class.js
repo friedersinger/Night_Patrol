@@ -35,12 +35,18 @@ class MovableObject {
   }
 
   drawFram(ctx) {
-    // HTML canvas rect() Method
-    ctx.beginPath();
-    ctx.lineWidth = "5";
-    ctx.strokeStyle = "blue";
-    ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.stroke();
+    if (
+      this instanceof Character ||
+      this instanceof Gangster ||
+      this instanceof Endboss
+    ) {
+      // HTML canvas rect() Method
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "blue";
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
   }
 
   /**
