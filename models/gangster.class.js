@@ -9,8 +9,8 @@ class Gangster extends MovableObject {
     "img/gangster/png/3/walk/3_terrorist_3_Walk_003.png",
     "img/gangster/png/3/walk/3_terrorist_3_Walk_004.png",
     "img/gangster/png/3/walk/3_terrorist_3_Walk_005.png",
-    "img/gangster/png/3/walk/3_terrorist_3_Walk_006.png",
-    "img/gangster/png/3/walk/3_terrorist_3_Walk_007.png",
+    // "img/gangster/png/3/walk/3_terrorist_3_Walk_006.png",
+    // "img/gangster/png/3/walk/3_terrorist_3_Walk_007.png",
   ];
 
   constructor() {

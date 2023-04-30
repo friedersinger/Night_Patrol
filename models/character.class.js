@@ -23,6 +23,26 @@ class Character extends MovableObject {
     "img/policeman/png/3/jump/3_police_Jump_006.png",
     "img/policeman/png/3/jump/3_police_Jump_007.png",
   ];
+
+  IMAGES_DEAD = [
+    "img/policeman/png/3/hurt/3_police_Hurt_000.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_001.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_002.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_003.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_004.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_005.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_006.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_007.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_008.png",
+  ];
+
+  IMAGES_HURT = [
+    "img/policeman/png/3/hurt/3_police_Hurt_000.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_001.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_002.png",
+    "img/policeman/png/3/hurt/3_police_Hurt_003.png",
+  ];
+
   world;
   walking_sound = new Audio("audio/walking.mp3");
 
@@ -30,6 +50,8 @@ class Character extends MovableObject {
     super().loadImage("img/policeman/png/3/walk/3_police_Walk_000.png");
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
+    this.loadImages(this.IMAGES_DEAD);
+    this.loadImages(this.IMAGES_HURT);
     this.applyGravity();
     this.animate();
   }
@@ -59,7 +81,11 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     setInterval(() => {
-      if (this.isAboveGround()) {
+      if (this.isDead()) {
+        this.playAnimation(this.IMAGES_DEAD);
+      } else if (this.isHurt()) {
+        this.playAnimation(this.IMAGES_HURT);
+      } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
