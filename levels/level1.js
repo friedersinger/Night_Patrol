@@ -1,3 +1,7 @@
+// let level1;
+// function initLevel() {
+//   level1 = new Level(
+
 const level1 = new Level(
   [new Gangster(), new Gangster(), new Gangster(), new Endboss()],
   [new cloud()],
