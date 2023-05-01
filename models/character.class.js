@@ -43,6 +43,15 @@ class Character extends MovableObject {
     "img/policeman/png/3/hurt/3_police_Hurt_003.png",
   ];
 
+  IMAGES_ATTACK = [
+    "img/policeman/png/3/attack3/3_police_attack_Attack3_000.png",
+    "img/policeman/png/3/attack3/3_police_attack_Attack3_001.png",
+    "img/policeman/png/3/attack3/3_police_attack_Attack3_002.png",
+    "img/policeman/png/3/attack3/3_police_attack_Attack3_003.png",
+    "img/policeman/png/3/attack3/3_police_attack_Attack3_004.png",
+    "img/policeman/png/3/attack3/3_police_attack_Attack3_005.png",
+  ];
+
   world;
   walking_sound = new Audio("audio/walking.mp3");
 
@@ -52,6 +61,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
+    this.loadImages(this.IMAGES_ATTACK);
     this.applyGravity();
     this.animate();
   }
@@ -87,6 +97,8 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
+      } else if (this.world.keyboard.D) {
+        this.playAnimation(this.IMAGES_ATTACK);
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
           this.playAnimation(this.IMAGES_WALKING);
