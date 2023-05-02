@@ -42,6 +42,299 @@ canvas {
   display: block;
 }
 
+.d-none {
+  display: none;
+}
+
+.hover:hover {
+  cursor: pointer;
+}
+
+.sound {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.sound img {
+  height: 30px;
+}
+
+#game {
+  position: relative;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.startscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.startscreen img {
+  height: 480px;
+  width: 720px;
+  border-radius: 20px;
+}
+
+.welcomePicture {
+  position: relative;
+  background-image: url("img/background_body/city.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 500px;
+  width: 820px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.welcomePicture button {
+  position: absolute;
+  height: 50px;
+  width: 150px;
+  background-color: rgb(27, 116, 248);
+  color: rgb(249, 249, 249);
+  border: 0;
+  font-size: 30px;
+  font-family: "Anton", sans-serif;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  animation: blink 3s infinite;
+}
+
+.welcomePicture button:hover {
+  cursor: pointer;
+  animation: none;
+}
+
+@keyframes blink {
+  0% {
+    background-color: rgb(255, 0, 0); /* red */
+  }
+  25% {
+    background-color: rgb(27, 116, 248); /* original color */
+  }
+  50% {
+    background-color: rgb(255, 255, 255); /* original color */
+  }
+  75% {
+    background-color: rgb(255, 0, 0); /* original color */
+  }
+  100% {
+    background-color: rgb(27, 116, 248); /* red */
+  }
+}
+
+.explanation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.soundStart {
+  position: absolute;
+  bottom: 430px;
+  right: 20px;
+}
+
+.soundStart img {
+  height: 30px !important;
+  width: 30px !important;
+}
+
+.keys {
+  max-width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.keys img {
+  height: 50px;
+  width: 50px;
+  margin-left: 40px;
+  margin-right: 10px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  align-items: center;
+  justify-content: space-around;
+  height: 50px;
+}
+
+.controll-keys {
+  margin-top: 30px;
+  width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.controll-keys img {
+  height: 50px;
+  width: 50px;
+}
+
+.controll-keys:hover {
+  cursor: pointer;
+}
+
+.arrow-left {
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.arrow-right {
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.arrow-up {
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  align-items: center;
+  justify-content: space-around;
+}
+.space {
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.letter-d {
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.canvas-div {
+  position: relative;
+}
+
+.play-buttons {
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+}
+
+.play-buttons img {
+  height: 40px;
+}
+
+.moving-buttons {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.action-buttons {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.endscreen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.endscreen img {
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+
+  animation: zoomOut;
+  animation-duration: 3s;
+}
+
+.endscreen button {
+  position: absolute;
+  bottom: 150px;
+  height: 50px;
+  width: 150px;
+  background-color: rgb(109, 123, 255);
+  color: black;
+  border: 0;
+  font-size: 40px;
+  font-family: "Anton", sans-serif;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  animation: blink 1s infinite;
+}
+
+.endscreen button:hover {
+  cursor: pointer;
+  animation: none;
+}
+
+@keyframes blink {
+  0% {
+    background-color: rgb(255, 0, 0); /* red */
+  }
+  50% {
+    background-color: rgb(109, 123, 255); /* original color */
+  }
+  100% {
+    background-color: rgb(255, 0, 0); /* red */
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+    height: 0;
+    width: 0;
+  }
+
+  100% {
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
 /* ----- SMARTPHONE ------ */
 @media only screen and (max-width: 720px) {
   canvas {
@@ -56,5 +349,142 @@ canvas {
   }
   canvas {
     height: 100vh;
+  }
+}
+
+@media (max-width: 830px) {
+  .welcomePicture {
+    height: 364px;
+    width: 600px;
+  }
+
+  .welcomePicture button {
+    height: 40px;
+    width: 130px;
+    font-size: 35px;
+  }
+
+  .soundStart {
+    bottom: 310px;
+  }
+
+  .keys {
+    max-width: 100%;
+  }
+
+  .keys img {
+    height: 40px;
+    width: 40px;
+    margin-left: 30px;
+    margin-right: 10px;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    font-size: 25px;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .canvas-div {
+    width: 100%;
+    height: unset;
+  }
+}
+
+@media (max-width: 630px) {
+  .welcomePicture {
+    height: 330px;
+    width: 100%;
+  }
+
+  .welcomePicture button {
+    height: 30px;
+    width: 110px;
+    font-size: 30px;
+  }
+
+  .soundStart {
+    bottom: 275px;
+  }
+
+  .play-buttons {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 30px;
+  }
+
+  .play-buttons img {
+    height: 30px;
+  }
+
+  .sound {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .sound img {
+    height: 20px;
+  }
+
+  .endscreen img {
+    height: 50vh;
+  }
+}
+
+@media (max-width: 470px) {
+  .welcomePicture {
+    height: 300px;
+    width: 100%;
+  }
+
+  .welcomePicture button {
+    height: 30px;
+    width: 100px;
+    font-size: 24px;
+  }
+
+  .soundStart {
+    bottom: 250px;
+  }
+
+  .play-buttons {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 20px;
+  }
+
+  .play-buttons img {
+    height: 20px;
+  }
+}
+
+@media (max-height: 770px) {
+  .endscreen button {
+    bottom: 70px;
+  }
+}
+
+@media (max-height: 620px) {
+  .explanation {
+    display: none;
+  }
+
+  .endscreen button {
+    bottom: 10px;
+  }
+}
+
+@media (min-width: 800px) {
+  .play-buttons {
+    display: none;
   }
 }

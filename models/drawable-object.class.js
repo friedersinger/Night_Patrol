@@ -42,6 +42,10 @@ class DrawableObject {
    * @param {Array} arr - {'img/image1.png', 'img/image2.png', ...}
    */
   loadImages(arr) {
+    if (!Array.isArray(arr)) {
+      console.error("loadImages: expected an array, but received:", arr);
+      return;
+    }
     arr.forEach((path) => {
       let img = new Image();
       img.src = path;

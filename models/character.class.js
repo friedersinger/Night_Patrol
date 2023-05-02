@@ -2,6 +2,13 @@ class Character extends MovableObject {
   speed = 10;
   height = 200;
 
+  offset = {
+    top: 130,
+    bottom: 15,
+    left: 40,
+    right: 40,
+  };
+
   IMAGES_WALKING = [
     "img/policeman/png/3/walk/3_police_Walk_000.png",
     "img/policeman/png/3/walk/3_police_Walk_001.png",
@@ -54,6 +61,12 @@ class Character extends MovableObject {
 
   world;
   walking_sound = new Audio("audio/walking.mp3");
+  collect_sound = new Audio("audio/collect.mp3");
+  hurt_sound = new Audio("audio/hurt.mp3");
+  jump_sound = new Audio("audio/jump.mp3");
+  win_sound = new Audio("audio/win.mp3");
+  lost_sound = new Audio("audio/lost.mp3");
+  shot_sound = new Audio("audio/shot.mp3");
 
   constructor() {
     super().loadImage("img/policeman/png/3/walk/3_police_Walk_000.png");
@@ -72,19 +85,19 @@ class Character extends MovableObject {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
-        this.walking_sound.play();
+        this.playWalkingSound();
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
-        this.walking_sound.play();
+        this.playWalkingSound();
         this.otherDirection = true;
       }
-
       if (
         (this.world.keyboard.UP || this.world.keyboard.SPACE) &&
         !this.isAboveGround()
       ) {
         this.jump();
+        this.playJumpingSound();
       }
 
       this.world.camera_x = -this.x + 100;
@@ -92,13 +105,15 @@ class Character extends MovableObject {
 
     setInterval(() => {
       if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
+        this.playDead();
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
+        this.playHurtSound();
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.world.keyboard.D) {
         this.playAnimation(this.IMAGES_ATTACK);
+        this.playWaterBomb();
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
           this.playAnimation(this.IMAGES_WALKING);
@@ -107,7 +122,58 @@ class Character extends MovableObject {
     }, 50);
   }
 
+  playDead() {
+    this.playAnimation(this.IMAGES_DEAD);
+    this.playLostSound();
+    setTimeout(() => {
+      clearInterval(this.interval);
+    }, 300);
+    this.world.gameOver = true;
+  }
+
   jump() {
     this.speedY = 30;
+  }
+
+  playWalkingSound() {
+    if (this.world.soundOn) {
+      this.walking_sound.play();
+    }
+  }
+
+  playJumpingSound() {
+    if (this.world.soundOn) {
+      this.jump_sound.play();
+    }
+  }
+
+  playCollectSound() {
+    if (this.world.soundOn) {
+      this.collect_sound.play();
+    }
+  }
+
+  playWaterBomb() {
+    if (this.world.soundOn) {
+      this.shot_sound.play();
+    }
+  }
+
+  playLostSound() {
+    if (this.world.soundOn) {
+      this.lost_sound.play();
+    }
+  }
+
+  playWinSound() {
+    if (this.world.soundOn) {
+      this.win_sound.play();
+    }
+  }
+
+  playHurtSound() {
+    if (this.world.soundOn) {
+      this.hurt_sound.play();
+    }
   }
 }

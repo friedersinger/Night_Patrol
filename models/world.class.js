@@ -7,7 +7,15 @@ class World {
   keyboard;
   camera_x = 0;
   statusBar = new StatusBar();
-  throwableObjects = [];
+  fullscreen = new Fullscreen();
+  throwableObjects = [new ThrowableObject()];
+  collectedCoins = 0;
+  collectedWaterBombs = 0;
+  smallCoin = new SmallCoin();
+  smallWaterBomb = new SmallWaterBomb();
+  hitOneTime = false;
+  gameOver = false;
+  soundOn = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -65,6 +73,9 @@ class World {
     this.ctx.translate(-this.camera_x, 0); // Back
     // -------- SPACE FOR FIXED OBJECTS ------------
     this.addToMap(this.statusBar);
+    this.addToMap(this.fullscreen);
+    this.addToMap(this.smallCoin);
+    this.addToMap(this.smallWaterBomb);
     this.ctx.translate(this.camera_x, 0); // Forward
 
     this.addToMap(this.character);

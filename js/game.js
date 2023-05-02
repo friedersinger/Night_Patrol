@@ -3,8 +3,13 @@ let world;
 let keyboard = new Keyboard();
 
 function init() {
+  initLevel();
+  document.getElementById("game").style.display = "flex";
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("endScreen").style.display = "none";
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
+  playSound();
 
   console.log("My Character is", world.character);
 }
@@ -74,4 +79,27 @@ function exitFullscreen() {
   } else if (document.webkitExitFullscreen) {
     document.webkitExitFullscreen();
   }
+}
+
+function playSound() {
+  if (soundIsOn) {
+    start_sound.play();
+  }
+}
+
+function soundOn() {
+  document.getElementById("soundOff").style.display = "none";
+  document.getElementById("soundStartOff").style.display = "none";
+  soundIsOn = true;
+  world.soundOn = true;
+}
+
+/**
+ * Set sound off
+ */
+function soundOff() {
+  document.getElementById("soundOff").style.display = "block";
+  document.getElementById("soundStartOff").style.display = "block";
+  soundIsOn = false;
+  world.soundOn = false;
 }
