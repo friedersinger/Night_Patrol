@@ -1,5 +1,6 @@
 class World {
   character = new Character();
+  endboss = new Endboss();
   level = level1;
   canvas;
   ctx;
@@ -19,6 +20,7 @@ class World {
 
   setWorld() {
     this.character.world = this;
+    this.endboss.world = this;
   }
 
   run() {
