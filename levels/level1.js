@@ -73,5 +73,23 @@ const level1 = new Level(
       "img/background/PNG/City2/Bright/road&lamps.png",
       720 * 3
     ),
+    new BackgroundObject("img/background/PNG/City2/Bright/Sky.png", 720 * 4),
+    new BackgroundObject("img/background/PNG/City2/Bright/back.png", 720 * 4),
+    new BackgroundObject(
+      "img/background/PNG/City2/Bright/houses3.png",
+      720 * 4
+    ),
+    new BackgroundObject(
+      "img/background/PNG/City2/Bright/houses1.png",
+      720 * 4
+    ),
+    new BackgroundObject(
+      "img/background/PNG/City2/Bright/minishop&callbox.png",
+      720 * 4
+    ),
+    new BackgroundObject(
+      "img/background/PNG/City2/Bright/road&lamps.png",
+      720 * 4
+    ),
   ]
 );

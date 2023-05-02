@@ -1,8 +1,8 @@
 class Endboss extends MovableObject {
-  y = 170;
   height = 300;
   width = 150;
-  x = 2000;
+  x = 2600;
+  y = 0;
 
   IMAGES_WALKING = [
     "img/gangster/png/3/Attack3/3_terrorist_3_Attack3_000.png",
@@ -12,7 +12,7 @@ class Endboss extends MovableObject {
     "img/gangster/png/3/Attack3/3_terrorist_3_Attack3_004.png",
     "img/gangster/png/3/Attack3/3_terrorist_3_Attack3_005.png",
   ];
-  IMAGES_SPAWING = [
+  IMAGES_SPAWNING = [
     "img/gangster/png/3/jump/3_terrorist_3_Jump_000.png",
     "img/gangster/png/3/jump/3_terrorist_3_Jump_001.png",
     "img/gangster/png/3/jump/3_terrorist_3_Jump_002.png",
@@ -26,7 +26,9 @@ class Endboss extends MovableObject {
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
-    this.loadImages(this.IMAGES_SPAWING);
+    this.loadImages(this.IMAGES_SPAWNING);
+    this.applyGravity();
+
     this.world = null;
 
     this.animate();
@@ -39,9 +41,12 @@ class Endboss extends MovableObject {
 
     setInterval(() => {
       if (i < 10) {
-        this.playAnimation(this.IMAGES_SPAWING);
+        this.playAnimation(this.IMAGES_SPAWNING);
+        this.jump();
       } else {
         this.playAnimation(this.IMAGES_WALKING);
+        this.speed = 1;
+        this.moveLeft();
       }
 
       i++;
@@ -49,12 +54,18 @@ class Endboss extends MovableObject {
       if (
         world &&
         world.character &&
-        world.character.x > 1600 &&
+        world.character.x > 2100 &&
         !this.hadFirstContact
       ) {
         i = 0;
         this.hadFirstContact = true;
       }
     }, 100);
+  }
+
+  jump() {
+    this.speedY = 10;
+    this.speed = 5; // set horizontal speed during jump
+    this.moveLeft(); // move left during jump
   }
 }

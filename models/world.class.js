@@ -111,4 +111,9 @@ class World {
     mo.x = mo.x * -1;
     this.ctx.restore();
   }
+
+  /* Alternative (quick and dirty), um alle Intervalle zu beenden. */
+  clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+  }
 }
