@@ -8,6 +8,7 @@ class World {
   keyboard;
   camera_x = 0;
   statusBar = new StatusBar();
+  throwableObjects = [];
   fullscreen = new Fullscreen();
   hitOneTime = false;
   gameOver = false;
@@ -47,7 +48,18 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
+      this.checkThrowObjects();
     }, 200);
+  }
+
+  checkThrowObjects() {
+    if (this.keyboard.D) {
+      let waterBomb = new ThrowableObject(
+        this.character.x + 60,
+        this.character.y
+      );
+      this.throwableObjects.push(waterBomb);
+    }
   }
 
   checkCollisions() {
@@ -72,6 +84,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.throwableObjects);
     this.addToMap(this.character);
     this.addToMap(this.endboss);
 
@@ -82,8 +95,6 @@ class World {
     this.addToMap(this.statusBar);
     this.addToMap(this.fullscreen);
     this.ctx.translate(this.camera_x, 0); // Forward
-
-    this.addObjectsToMap(this.throwableObjects);
 
     this.ctx.translate(-this.camera_x, 0);
 
