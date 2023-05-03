@@ -1,6 +1,9 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let soundIsOn = false;
+
+let start_sound = new Audio("audio/start-sound.mp3");
 
 function init() {
   initLevel();
@@ -91,7 +94,7 @@ function soundOn() {
   document.getElementById("soundOff").style.display = "none";
   document.getElementById("soundStartOff").style.display = "none";
   soundIsOn = true;
-  world.soundOn = true;
+  // world.soundOn = true;
 }
 
 /**

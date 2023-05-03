@@ -2,17 +2,13 @@ class World {
   character = new Character();
   endboss = new Endboss();
   level = level1;
+  backgroundObjects = this.level.backgroundObjects;
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
   statusBar = new StatusBar();
   fullscreen = new Fullscreen();
-  throwableObjects = [new ThrowableObject()];
-  collectedCoins = 0;
-  collectedWaterBombs = 0;
-  smallCoin = new SmallCoin();
-  smallWaterBomb = new SmallWaterBomb();
   hitOneTime = false;
   gameOver = false;
   soundOn = false;
@@ -24,6 +20,8 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.gameIsOver();
+    this.checkSoundOn();
   }
 
   setWorld() {
@@ -31,21 +29,25 @@ class World {
     this.endboss.world = this;
   }
 
-  run() {
+  checkSoundOn() {
+    if (soundIsOn) {
+      this.soundOn = true;
+    }
+  }
+
+  gameIsOver() {
     setInterval(() => {
-      this.checkCollisions();
-      this.checkThrowObjects();
+      if (this.gameOver) {
+        //console.log('GameOver')
+        document.getElementById("endScreen").style.display = "flex";
+      }
     }, 200);
   }
 
-  checkThrowObjects() {
-    if (this.keyboard.D) {
-      let waterbomb = new ThrowableObject(
-        this.character.x + 30,
-        this.character.y + 30
-      );
-      this.throwableObjects.push(waterbomb);
-    }
+  run() {
+    setInterval(() => {
+      this.checkCollisions();
+    }, 200);
   }
 
   checkCollisions() {
@@ -69,18 +71,18 @@ class World {
 
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.level.enemies);
+    this.addToMap(this.character);
+    this.addToMap(this.endboss);
+
+    // this.addObjectsToMap(this.level.coins);
 
     this.ctx.translate(-this.camera_x, 0); // Back
     // -------- SPACE FOR FIXED OBJECTS ------------
     this.addToMap(this.statusBar);
     this.addToMap(this.fullscreen);
-    this.addToMap(this.smallCoin);
-    this.addToMap(this.smallWaterBomb);
     this.ctx.translate(this.camera_x, 0); // Forward
 
-    this.addToMap(this.character);
-    this.addObjectsToMap(this.level.clouds);
-    this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.throwableObjects);
 
     this.ctx.translate(-this.camera_x, 0);
@@ -93,6 +95,9 @@ class World {
   }
 
   addObjectsToMap(objects) {
+    if (!Array.isArray(objects)) {
+      return;
+    }
     objects.forEach((o) => {
       this.addToMap(o);
     });

@@ -108,22 +108,6 @@ function initLevel() {
         720 * 4
       ),
     ],
-    [
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-      new Coin(),
-    ]
+    [2900]
   );
 }
