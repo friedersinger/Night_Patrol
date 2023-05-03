@@ -94,7 +94,7 @@ function soundOn() {
   document.getElementById("soundOff").style.display = "none";
   document.getElementById("soundStartOff").style.display = "none";
   soundIsOn = true;
-  // world.soundOn = true;
+  world.soundOn = true;
 }
 
 /**
