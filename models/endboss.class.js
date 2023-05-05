@@ -1,8 +1,8 @@
 class Endboss extends MovableObject {
-  height = 300;
-  width = 150;
+  height = 400;
+  width = 200;
   x = 2600;
-  y = 0;
+  y = 320;
 
   IMAGES_WALKING = [
     "img/gangster/png/3/Attack3/3_terrorist_3_Attack3_000.png",
@@ -27,7 +27,7 @@ class Endboss extends MovableObject {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_SPAWNING);
-    this.applyGravity();
+    // this.applyGravity();
 
     this.world = null;
 
@@ -64,8 +64,16 @@ class Endboss extends MovableObject {
   }
 
   jump() {
-    this.speedY = 10;
-    this.speed = 5; // set horizontal speed during jump
+    if (this.y < 240) {
+      this.speedY = 15;
+    } else if (this.y < 300) {
+      this.speedY = 10;
+    } else {
+      this.speedY = 5;
+    }
+
+    this.speed = 6; // set horizontal speed during jump
     this.moveLeft(); // move left during jump
+    this.y -= this.speedY; // move up during jump
   }
 }
