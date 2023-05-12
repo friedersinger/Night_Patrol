@@ -79,6 +79,11 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Animates the character's movement and actions based on keyboard input and state.
+   * The character can stand, walk, jump, attack, or be hurt or dead.
+   *
+   */
   animate() {
     setInterval(() => {
       this.walking_sound.pause();
@@ -122,6 +127,11 @@ class Character extends MovableObject {
     }, 50);
   }
 
+  /**
+   * Plays a sound effect for when the character is dead.
+   *
+   *
+   */
   playDead() {
     this.playAnimation(this.IMAGES_DEAD);
     this.playLostSound();
@@ -131,46 +141,86 @@ class Character extends MovableObject {
     this.world.gameOver = true;
   }
 
-  jump() {
-    this.speedY = 30;
-  }
-
+  /**
+   * Plays a sound effect for when the character is walking.
+   *
+   *
+   */
   playWalkingSound() {
     if (this.world.soundOn) {
       this.walking_sound.play();
     }
   }
 
+  /**
+   * Makes the character jump.
+   *
+   *
+   */
+  jump() {
+    this.speedY = 30;
+  }
+
+  /**
+   * Plays a sound effect for jumping.
+   *
+   *
+   */
   playJumpingSound() {
     if (this.world.soundOn) {
       this.jump_sound.play();
     }
   }
 
+  /**
+   * Plays a sound effect for when the character collects an item.
+   *
+   *
+   */
   playCollectSound() {
     if (this.world.soundOn) {
       this.collect_sound.play();
     }
   }
 
+  /**
+   * Plays a sound effect for when the character uses a water bomb.
+   *
+   *
+   */
   playWaterBomb() {
     if (this.world.soundOn) {
       this.shot_sound.play();
     }
   }
 
+  /**
+   * Plays a sound effect for when the character loses the game.
+   *
+   *
+   */
   playLostSound() {
     if (this.world.soundOn) {
       this.lost_sound.play();
     }
   }
 
+  /**
+   * Plays a sound effect for when the character wins the game.
+   *
+   *
+   */
   playWinSound() {
     if (this.world.soundOn) {
       this.win_sound.play();
     }
   }
 
+  /**
+   * Plays a sound effect for when the character gets hurt.
+   *
+   *
+   */
   playHurtSound() {
     if (this.world.soundOn) {
       this.hurt_sound.play();

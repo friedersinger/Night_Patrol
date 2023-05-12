@@ -168,6 +168,7 @@ function soundOn() {
 /**
  * This function sets sound off and updates the corresponding HTML elements.
  *
+ *
  */
 function soundOff() {
   document.getElementById("soundOff").style.display = "block";
