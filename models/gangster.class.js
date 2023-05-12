@@ -22,6 +22,11 @@ class Gangster extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Make the gangsters moving
+   *
+   *
+   */
   animate() {
     setInterval(() => {
       this.moveLeft();
