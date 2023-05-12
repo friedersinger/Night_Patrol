@@ -36,6 +36,11 @@ class Endboss extends MovableObject {
 
   hadFirstContact = false;
 
+  /**
+   * Animates the endboss by playing the spawning animation
+   *
+   *
+   */
   animate() {
     let i = 0;
 
