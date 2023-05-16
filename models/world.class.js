@@ -2,19 +2,22 @@ class World {
   character = new Character();
   endboss = new Endboss();
   level = level1;
-  backgroundObjects = this.level.backgroundObjects;
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
   statusBar = new StatusBar();
-  throwableObjects = [];
+  throwableObjects = [new ThrowableObject()];
+  coin = new Coin();
+  waterbomb = new Waterbomb();
   collectedCoins = 0;
-  collectedBottles = 0;
+  collectedWaterbombs = 0;
   fullscreen = new Fullscreen();
   hitOneTime = false;
   gameOver = false;
   soundOn = false;
+
+  collect_sound = new Audio("audio/collect.mp3");
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -70,20 +73,39 @@ class World {
       this.checkCollisions();
       this.checkThrowObjects();
     }, 200);
+
+    setInterval(() => {
+      this.checkCollectCoin();
+      this.checkCollectWaterbomb();
+    }, 20);
   }
 
   /**
-   * missing the check for collected Waterbombs
+   * Ensures that the player has collected Waterbombs before throwing them.
    *
    */
   checkThrowObjects() {
-    if (this.keyboard.D) {
-      let waterBomb = new ThrowableObject(
-        this.character.x + 60,
-        this.character.y
-      );
-      this.throwableObjects.push(waterBomb);
+    if (
+      this.keyboard.D &&
+      this.collectedWaterbombs > 0 &&
+      this.character.otherDirection == false
+    ) {
+      this.throwThisWaterbomb();
     }
+  }
+
+  /**
+   * Creates a new Waterbomb object and throws it.
+   *
+   *
+   */
+  throwThisWaterbomb() {
+    let waterbomb = new ThrowableObject(
+      this.character.x + 60,
+      this.character.y
+    );
+    this.throwableObjects.push(waterbomb);
+    this.collectedWaterbombs -= 1;
   }
 
   /**
@@ -106,6 +128,68 @@ class World {
   }
 
   /**
+   * This function iterates over all the coins on the map and checks
+   * if the character is colliding with any of them. If a collision is
+   * detected, the coin is removed from the map, a collect sound is played
+   * and the number of collected coins is incremented.
+   *
+   *
+   */
+  checkCollectCoin() {
+    this.level.coins.forEach((coin, index) => {
+      if (this.character.isColliding(coin, index)) {
+        console.log("Cointreffer:", index);
+        this.removeCoinFromMap(index);
+        this.playCollectSound();
+        this.collectedCoins++;
+      }
+    });
+  }
+
+  /**
+   * Collect waterbomb if character collides with it
+   *
+   *
+   */
+  checkCollectWaterbomb() {
+    this.level.waterbomb.forEach((waterbomb, index) => {
+      if (this.character.isColliding(waterbomb, index)) {
+        this.removeWaterbombFromMap(index);
+        this.playCollectSound();
+        this.collectedWaterbombs++;
+      }
+    });
+  }
+
+  /**
+   * Play sound for collecting item
+   *
+   *
+   */
+  playCollectSound() {
+    if (this.soundOn) {
+      this.collect_sound.play();
+    }
+  }
+
+  /**
+   * Remove Coin from map
+   *
+   * @param {number} i - Index of the coin
+   */
+  removeCoinFromMap(i) {
+    this.level.coins.splice(i, 1);
+  }
+
+  /**
+   * Remove waterbomb from map
+   *
+   * @param {number} i - Index of the waterbomb     */
+  removeWaterbombFromMap(i) {
+    this.level.waterbomb.splice(i, 1);
+  }
+
+  /**
    * Renders all game objects on the canvas.
    *
    *
@@ -119,16 +203,20 @@ class World {
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.throwableObjects);
+    this.addObjectsToMap(this.level.coins);
+    this.addObjectsToMap(this.level.waterbomb);
     this.addToMap(this.character);
     this.addToMap(this.endboss);
 
-    // this.addObjectsToMap(this.level.coins);
-
     this.ctx.translate(-this.camera_x, 0); // Back
+
     // -------- SPACE FOR FIXED OBJECTS ------------
     this.addToMap(this.statusBar);
     this.addToMap(this.fullscreen);
+
     this.ctx.translate(this.camera_x, 0); // Forward
+
+    this.drawAmountOfCollectedObjects();
 
     this.ctx.translate(-this.camera_x, 0);
 
@@ -137,6 +225,22 @@ class World {
     requestAnimationFrame(function () {
       self.draw();
     });
+  }
+
+  /**
+   * Draw the number of collected objects
+   *
+   *
+   */
+  drawAmountOfCollectedObjects() {
+    this.ctx.font = "35px Anton";
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText("= " + this.collectedCoins, 10 + this.character.x, 92); //number of Coins
+    this.ctx.fillText(
+      "= " + this.collectedWaterbombs,
+      100 + this.character.x,
+      92
+    );
   }
 
   /**

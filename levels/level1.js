@@ -108,6 +108,41 @@ function initLevel() {
         720 * 4
       ),
     ],
-    [2900]
+    [2900],
+    [
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+      new Coin(),
+    ],
+
+    [
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+      new Waterbomb(),
+    ]
   );
 }
