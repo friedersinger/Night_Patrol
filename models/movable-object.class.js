@@ -1,5 +1,6 @@
 class MovableObject extends DrawableObject {
   speed = 0.4;
+  y = 0;
   otherDirection = false;
   speedY = 0;
   acceleration = 2.5;
@@ -16,6 +17,8 @@ class MovableObject extends DrawableObject {
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
+      } else if (!this.isAboveGround()) {
+        this.speedY = 0;
       }
     }, 1000 / 25);
   }
@@ -39,13 +42,37 @@ class MovableObject extends DrawableObject {
    * @param {Object} obj - The object to check collision against
    * @returns {boolean} - True if objects are colliding, false otherwise
    */
-  isColliding(mo) {
+  isColliding(object) {
     return (
-      this.x + this.width > mo.x &&
-      this.y + this.height > mo.y &&
-      this.x < mo.x &&
-      this.y < mo.y + mo.height
+      this.rightBorder() > this.leftObjectBorder(object) &&
+      this.bottomBorder() > this.topObjectBorder(object) &&
+      this.leftBorder() < this.rightObjectBorder(object) &&
+      this.topBorder() < this.bottomObjectBorder(object)
     );
+  }
+  rightBorder() {
+    return this.x + this.width - this.offset.right;
+  }
+  leftBorder() {
+    return this.x + this.offset.left;
+  }
+  topBorder() {
+    return this.y + this.offset.top;
+  }
+  bottomBorder() {
+    return this.y + this.height - this.offset.bottom;
+  }
+  rightObjectBorder(object) {
+    return object.x + object.width - object.offset.right;
+  }
+  leftObjectBorder(object) {
+    return object.x + object.offset.left;
+  }
+  topObjectBorder(object) {
+    return object.y + object.offset.top;
+  }
+  bottomObjectBorder(object) {
+    return object.y + object.height - object.offset.bottom;
   }
 
   /**
@@ -54,15 +81,12 @@ class MovableObject extends DrawableObject {
    *
    */
   hit() {
-    if (this instanceof Endboss) {
-      this.energy -= 100;
+    this.energy -= 5;
+
+    if (this.energy < 0) {
+      this.energy = 0;
     } else {
-      this.energy -= 5;
-      if (this.energy < 0) {
-        this.energy = 0;
-      } else {
-        this.lastHit = new Date().getTime();
-      }
+      this.lastHit = new Date().getTime();
     }
   }
 
@@ -84,6 +108,16 @@ class MovableObject extends DrawableObject {
    */
   isDead() {
     return this.energy == 0;
+  }
+
+  /**
+   * Set variables if Object has been killed
+   *
+   *
+   */
+  kill() {
+    this.isDead = true;
+    this.speed = 0;
   }
 
   /**

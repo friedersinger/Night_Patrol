@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
   width = 200;
   x = 2600;
   y = 320;
+  isAngry = false;
 
   IMAGES_WALKING = [
     "img/gangster/png/3/Attack3/3_terrorist_3_Attack3_000.png",
@@ -22,11 +23,20 @@ class Endboss extends MovableObject {
     "img/gangster/png/3/jump/3_terrorist_3_Jump_006.png",
     "img/gangster/png/3/jump/3_terrorist_3_Jump_007.png",
   ];
+  IMAGES_ANGRY = [
+    "img/gangster/png/3/Angry/3_terrorist_3_Angry3_000.png",
+    "img/gangster/png/3/Angry/3_terrorist_3_Angry3_001.png",
+    "img/gangster/png/3/Angry/3_terrorist_3_Angry3_002.png",
+    "img/gangster/png/3/Angry/3_terrorist_3_Angry3_003.png",
+    "img/gangster/png/3/Angry/3_terrorist_3_Angry3_004.png",
+    "img/gangster/png/3/Angry/3_terrorist_3_Angry3_005.png",
+  ];
 
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_SPAWNING);
+    this.loadImages(this.IMAGES_ANGRY);
     // this.applyGravity();
 
     this.world = null;

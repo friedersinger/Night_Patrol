@@ -10,6 +10,8 @@ class World {
   throwableObjects = [new ThrowableObject()];
   coin = new Coin();
   waterbomb = new Waterbomb();
+  smallCoin = new SmallCoin();
+  smallWaterbomb = new SmallWaterbomb();
   collectedCoins = 0;
   collectedWaterbombs = 0;
   fullscreen = new Fullscreen();
@@ -18,6 +20,7 @@ class World {
   soundOn = false;
 
   collect_sound = new Audio("audio/collect.mp3");
+  dead_gangster = new Audio("audio/jump_dead.mp3");
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -77,6 +80,7 @@ class World {
     setInterval(() => {
       this.checkCollectCoin();
       this.checkCollectWaterbomb();
+      this.checkGangsterDead();
     }, 20);
   }
 
@@ -115,14 +119,18 @@ class World {
    */
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (
+        this.character.isColliding(enemy) &&
+        this.character.speedY >= 0 &&
+        !enemy.isDead
+      ) {
         // console.log("Collision with Character ", enemy);
         this.character.hit();
         this.statusBar.setPercentage(this.character.energy);
-        // console.log(
-        //   "Collision with Character, energy: ",
-        //   this.character.energy
-        // );
+        console.log(
+          "Collision with Character, energy: ",
+          this.character.energy
+        );
       }
     });
   }
@@ -173,6 +181,49 @@ class World {
   }
 
   /**
+   * Check if gangster is dead by jumping on him
+   *
+   *
+   */
+  checkGangsterDead() {
+    this.level.enemies.forEach((enemy) => {
+      if (
+        !enemy.isDead &&
+        this.character.isColliding(enemy) &&
+        this.character.speedY < 0
+      ) {
+        enemy.kill();
+        this.playGangsterDead();
+        this.removeDeadGangster(enemy);
+        this.character.jump();
+      }
+    });
+  }
+
+  /**
+   * Play sound for dead Gangster
+   *
+   *
+   */
+  playGangsterDead() {
+    if (this.soundOn) {
+      this.dead_gangster.play();
+    }
+  }
+
+  /**
+   * Remove dead Gangster from map
+   *
+   * @param {object} enemy - Enemy which has been killed
+   */
+  removeDeadGangster(enemy) {
+    setTimeout(() => {
+      let index = this.level.enemies.indexOf(enemy);
+      this.level.enemies.splice(index, 1);
+    }, 1000);
+  }
+
+  /**
    * Remove Coin from map
    *
    * @param {number} i - Index of the coin
@@ -213,6 +264,8 @@ class World {
     // -------- SPACE FOR FIXED OBJECTS ------------
     this.addToMap(this.statusBar);
     this.addToMap(this.fullscreen);
+    this.addToMap(this.smallCoin);
+    this.addToMap(this.smallWaterbomb);
 
     this.ctx.translate(this.camera_x, 0); // Forward
 
