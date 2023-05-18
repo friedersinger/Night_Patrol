@@ -20,7 +20,7 @@ function init() {
   playSound();
   bindBtnPressEvents();
 
-  console.log("My Character is", world.character);
+  // console.log("My Character is", world.character);
 }
 
 /**

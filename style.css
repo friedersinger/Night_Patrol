@@ -4,15 +4,15 @@
   font-family: "Anton";
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/anton-v23-latin-regular.eot"); /* IE9 Compat Modes */
-  src: url("../fonts/anton-v23-latin-regular.eot?#iefix")
+  src: url("fonts/anton-v23-latin-regular.eot"); /* IE9 Compat Modes */
+  src: url("fonts/anton-v23-latin-regular.eot?#iefix")
       format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/anton-v23-latin-regular.woff2") format("woff2"),
-    /* Super Modern Browsers */ url("../fonts/anton-v23-latin-regular.woff")
+    /* IE6-IE8 */ url("fonts/anton-v23-latin-regular.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("fonts/anton-v23-latin-regular.woff")
       format("woff"),
-    /* Modern Browsers */ url("../fonts/anton-v23-latin-regular.ttf")
+    /* Modern Browsers */ url("fonts/anton-v23-latin-regular.ttf")
       format("truetype"),
-    /* Safari, Android, iOS */ url("../fonts/anton-v23-latin-regular.svg#Anton")
+    /* Safari, Android, iOS */ url("fonts/anton-v23-latin-regular.svg#Anton")
       format("svg"); /* Legacy iOS */
 }
 

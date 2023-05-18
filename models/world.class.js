@@ -129,7 +129,7 @@ class World {
       ) {
         this.character.hit();
         this.statusBar.setPercentage(this.character.energy);
-        console.log("Collision with character, energy ", this.character.energy);
+        // console.log("Collision with character, energy ", this.character.energy);
       }
     });
 
@@ -153,7 +153,7 @@ class World {
   checkCollectCoin() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin, index)) {
-        console.log("Cointreffer:", index);
+        // console.log("Cointreffer:", index);
         this.removeCoinFromMap(index);
         this.playCollectSound();
         this.collectedCoins++;
@@ -391,7 +391,7 @@ class World {
     }
 
     mo.draw(this.ctx);
-    mo.drawFram(this.ctx);
+    // mo.drawFram(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);
