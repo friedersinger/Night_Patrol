@@ -1,7 +1,7 @@
 class World {
   character = new Character();
-  endboss = new Endboss();
   level = level1;
+  endboss = this.level.endboss[0];
   canvas;
   ctx;
   keyboard;
@@ -21,6 +21,7 @@ class World {
 
   collect_sound = new Audio("audio/collect.mp3");
   dead_gangster = new Audio("audio/jump_dead.mp3");
+  splashed_waterbomb = new Audio("audio/splash.mp3");
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -81,6 +82,8 @@ class World {
       this.checkCollectCoin();
       this.checkCollectWaterbomb();
       this.checkGangsterDead();
+      this.checkWaterbombHitEndboss();
+      this.checkPositionForEndboss();
     }, 20);
   }
 
@@ -124,13 +127,17 @@ class World {
         this.character.speedY >= 0 &&
         !enemy.isDead
       ) {
-        // console.log("Collision with Character ", enemy);
         this.character.hit();
         this.statusBar.setPercentage(this.character.energy);
-        console.log(
-          "Collision with Character, energy: ",
-          this.character.energy
-        );
+        console.log("Collision with character, energy ", this.character.energy);
+      }
+    });
+
+    this.level.endboss.forEach((endboss) => {
+      if (this.character.isColliding(endboss) && this.endboss.energy > 0) {
+        this.character.hit();
+        this.statusBar.setPercentage(this.character.energy);
+        //console.log('Collision with character, energy ', this.character.energy);
       }
     });
   }
@@ -177,6 +184,49 @@ class World {
   playCollectSound() {
     if (this.soundOn) {
       this.collect_sound.play();
+    }
+  }
+
+  /**
+   * Check if waterbomb hitted endboss
+   *
+   *
+   */
+  checkWaterbombHitEndboss() {
+    this.throwableObjects.forEach((waterbomb, index) => {
+      if (this.endboss.isColliding(waterbomb) && this.hitOneTime == false) {
+        this.waterbombHitEndboss(index);
+      }
+    });
+  }
+
+  /**
+   * Actions when waterbomb hits endboss
+   *
+   * @param {number} index - The index of the waterbomb
+   */
+  waterbombHitEndboss(index) {
+    this.hitOneTime = true;
+    this.endboss.energy -= 10;
+    this.throwableObjects[index].waterbombHittedEndboss = true;
+    this.playSplashWaterbomb();
+    this.endboss.isAngry = true;
+    setTimeout(() => {
+      this.throwableObjects.splice(index, 1);
+    }, 200);
+    setTimeout(() => {
+      this.hitOneTime = false;
+    }, 200);
+  }
+
+  /**
+   * Play sound of splashed waterbomb
+   *
+   *
+   */
+  playSplashWaterbomb() {
+    if (this.soundOn) {
+      this.splashed_waterbomb.play();
     }
   }
 
@@ -241,6 +291,19 @@ class World {
   }
 
   /**
+   * Check the position of the character for starting endboss
+   *
+   *
+   */
+  checkPositionForEndboss() {
+    setInterval(() => {
+      if (this.character.x > 2000) {
+        this.level.endboss[0].firstContactEndboss = true;
+      }
+    }, 200);
+  }
+
+  /**
    * Renders all game objects on the canvas.
    *
    *
@@ -253,11 +316,11 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.endboss);
     this.addObjectsToMap(this.throwableObjects);
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.waterbomb);
     this.addToMap(this.character);
-    this.addToMap(this.endboss);
 
     this.ctx.translate(-this.camera_x, 0); // Back
 

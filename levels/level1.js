@@ -15,9 +15,9 @@ function initLevel() {
       new Gangster(),
       new Gangster(),
       new Gangster(),
-      new Endboss(),
     ],
-    [new cloud(), new cloud(), new cloud()],
+    [new Endboss()],
+    [(new cloud(), new cloud(), new cloud())],
     [
       new BackgroundObject("img/background/PNG/City2/Bright/Sky.png", -720),
       new BackgroundObject("img/background/PNG/City2/Bright/back.png", -720),

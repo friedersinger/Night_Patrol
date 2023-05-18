@@ -59,6 +59,17 @@ class Character extends MovableObject {
     "img/policeman/png/3/attack3/3_police_attack_Attack3_005.png",
   ];
 
+  IMAGES_STAND = [
+    "img/policeman/png/3/idle/3_police_Idle_000.png",
+    "img/policeman/png/3/idle/3_police_Idle_001.png",
+    "img/policeman/png/3/idle/3_police_Idle_002.png",
+    "img/policeman/png/3/idle/3_police_Idle_003.png",
+    "img/policeman/png/3/idle/3_police_Idle_004.png",
+    "img/policeman/png/3/idle/3_police_Idle_005.png",
+    "img/policeman/png/3/idle/3_police_Idle_006.png",
+    "img/policeman/png/3/idle/3_police_Idle_007.png",
+  ];
+
   world;
   walking_sound = new Audio("audio/walking.mp3");
   collect_sound = new Audio("audio/collect.mp3");
@@ -75,6 +86,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_ATTACK);
+    this.loadImages(this.IMAGES_STAND);
     this.applyGravity();
     this.animate();
   }
@@ -121,7 +133,10 @@ class Character extends MovableObject {
         this.playWaterBomb();
       } else {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+          //walk animation
           this.playAnimation(this.IMAGES_WALKING);
+        } else {
+          this.playAnimation(this.IMAGES_STAND);
         }
       }
     }, 50);

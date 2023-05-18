@@ -1,4 +1,6 @@
 class ThrowableObject extends MovableObject {
+  bottleHittedEndboss = false;
+
   IMAGES_WATERBOMB = [
     "img/water/waterbomb.png",
     "img/water/waterbomb2.png",
@@ -7,13 +9,18 @@ class ThrowableObject extends MovableObject {
   ];
 
   IMAGES_WATERSPLASH = [
-    "img/water/watersplash.png",
-    "img/water/watersplash2.png",
+    "img/water/water_splash/1_bottle_splash.png",
+    "img/water/water_splash/2_bottle_splash.png",
+    "img/water/water_splash/3_bottle_splash.png",
+    "img/water/water_splash/4_bottle_splash.png",
+    "img/water/water_splash/5_bottle_splash.png",
+    "img/water/water_splash/6_bottle_splash.png",
   ];
 
   constructor(x, y) {
     super().loadImage("img/water/waterbomb.png");
     this.loadImages(this.IMAGES_WATERBOMB);
+    this.loadImages(this.IMAGES_WATERSPLASH);
     this.x = 100;
     this.y = 100;
     this.height = 80;

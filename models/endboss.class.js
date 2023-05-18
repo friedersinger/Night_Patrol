@@ -1,8 +1,9 @@
 class Endboss extends MovableObject {
   height = 400;
   width = 200;
-  x = 2600;
-  y = 320;
+  y = 100;
+  speed = 1;
+  firstContactEndboss = false;
   isAngry = false;
 
   IMAGES_WALKING = [
@@ -31,64 +32,98 @@ class Endboss extends MovableObject {
     "img/gangster/png/3/Angry/3_terrorist_3_Angry3_004.png",
     "img/gangster/png/3/Angry/3_terrorist_3_Angry3_005.png",
   ];
+  IMAGES_DEAD = [
+    "img/gangster/png/3/hurt/3_terrorist_3_Hurt_000.png",
+    "img/gangster/png/3/hurt/3_terrorist_3_Hurt_001.png",
+    "img/gangster/png/3/hurt/3_terrorist_3_Hurt_002.png",
+    "img/gangster/png/3/hurt/3_terrorist_3_Hurt_003.png",
+    "img/gangster/png/3/hurt/3_terrorist_3_Hurt_004.png",
+    "img/gangster/png/3/hurt/3_terrorist_3_Hurt_005.png",
+    "img/gangster/png/3/hurt/3_terrorist_3_Hurt_006.png",
+    "img/gangster/png/3/hurt/3_terrorist_3_Hurt_007.png",
+    "img/gangster/png/3/hurt/3_terrorist_3_Hurt_008.png",
+  ];
+
+  win_sound = new Audio("audio/win.mp3");
 
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_SPAWNING);
     this.loadImages(this.IMAGES_ANGRY);
+    this.loadImages(this.IMAGES_DEAD);
     // this.applyGravity();
 
+    this.x = 2600;
     this.world = null;
 
     this.animate();
   }
 
-  hadFirstContact = false;
-
   /**
-   * Animates the endboss by playing the spawning animation
+   * Animates the endboss if walking, angry or dead
    *
    *
    */
   animate() {
-    let i = 0;
+    this.startEndboss();
 
-    setInterval(() => {
-      if (i < 10) {
-        this.playAnimation(this.IMAGES_SPAWNING);
-        this.jump();
-      } else {
+    let IDOfInterval = setInterval(() => {
+      if (this.energy == 100) {
         this.playAnimation(this.IMAGES_WALKING);
-        this.speed = 1;
-        this.moveLeft();
+      } else if (this.energy < 100 && this.energy > 0 && this.isAngry == true) {
+        this.playAnimation(this.IMAGES_ANGRY);
+        this.speed = 2;
+      } else if (this.energy <= 0) {
+        this.endbossIsDead();
       }
-
-      i++;
-
-      if (
-        world &&
-        world.character &&
-        world.character.x > 2100 &&
-        !this.hadFirstContact
-      ) {
-        i = 0;
-        this.hadFirstContact = true;
-      }
-    }, 100);
+    }, 150);
   }
 
-  jump() {
-    if (this.y < 240) {
-      this.speedY = 15;
-    } else if (this.y < 300) {
-      this.speedY = 10;
-    } else {
-      this.speedY = 5;
-    }
+  /**
+   * if character is near enough the endboss starts walking
+   *
+   *
+   */
+  startEndboss() {
+    setInterval(() => {
+      if (this.firstContactEndboss === true) {
+        this.moveToLeft();
+      }
+    }, 20);
+  }
 
-    this.speed = 6; // set horizontal speed during jump
-    this.moveLeft(); // move left during jump
-    this.y -= this.speedY; // move up during jump
+  /**
+   * endboss walks left
+   *
+   *
+   */
+  moveToLeft() {
+    this.moveLeft();
+  }
+  /**
+   * Play animation for dead endboss
+   *
+   *
+   */
+  endbossIsDead() {
+    this.playAnimation(this.IMAGES_DEAD);
+    this.speed = 0;
+    this.playWinSound();
+    setTimeout(() => {
+      this.world.gameOver = true;
+      clearInterval(this.IDOfInterval);
+    }, 2000);
+  }
+
+  /**
+   * Play sound for dead endboss
+   *
+   *
+   */
+  playWinSound() {
+    if (this.world.soundOn) {
+      this.win_sound.play();
+    }
   }
 }
