@@ -23,7 +23,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url("img/background_body/police.jpg");
+  background-image: url("img/background_body/police2.jpg");
   background-size: cover;
   background-position: center;
   background-color: black;
@@ -90,7 +90,7 @@ canvas {
 
 .welcomePicture {
   position: relative;
-  background-image: url("img/background_body/city3.png");
+  background-image: url("img/background_body/city4.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
