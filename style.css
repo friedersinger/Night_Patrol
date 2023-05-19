@@ -384,7 +384,7 @@ canvas {
   .welcomePicture button {
     height: 40px;
     width: 130px;
-    font-size: 35px;
+    font-size: 20px;
   }
 
   .soundStart {
@@ -429,7 +429,6 @@ canvas {
   .welcomePicture button {
     height: 30px;
     width: 110px;
-    font-size: 30px;
   }
 
   .soundStart {
@@ -468,6 +467,10 @@ canvas {
   .button-container {
     width: 400px;
   }
+
+  .welcomePicture button {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 470px) {
@@ -479,7 +482,6 @@ canvas {
   .welcomePicture button {
     height: 30px;
     width: 100px;
-    font-size: 24px;
   }
 
   .soundStart {
