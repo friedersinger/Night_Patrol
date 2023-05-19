@@ -97,6 +97,39 @@ class Character extends MovableObject {
       this.updateCameraPosition();
     }, 1000 / 60);
 
+    this.intervalMovments();
+  }
+
+  isWalking() {
+    return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+  }
+
+  handleMovement() {
+    this.walking_sound.pause();
+
+    const { keyboard, level } = this.world;
+    const { RIGHT, LEFT, UP, SPACE } = keyboard;
+    const { level_end_x } = level;
+
+    if (RIGHT && this.x < level_end_x) {
+      this.moveRight();
+      this.otherDirection = false;
+      this.playWalkingSound();
+    }
+
+    if (LEFT && this.x > -500) {
+      this.moveLeft();
+      this.playWalkingSound();
+      this.otherDirection = true;
+    }
+
+    if ((UP || SPACE) && !this.isAboveGround()) {
+      this.jump();
+      this.playJumpingSound();
+    }
+  }
+
+  intervalMovments() {
     setInterval(() => {
       if (this.isDead()) {
         this.playDead();
@@ -116,34 +149,6 @@ class Character extends MovableObject {
         }
       }
     }, 50);
-  }
-
-  isWalking() {
-    return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
-  }
-
-  handleMovement() {
-    this.walking_sound.pause();
-
-    if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-      this.moveRight();
-      this.otherDirection = false;
-      this.playWalkingSound();
-    }
-
-    if (this.world.keyboard.LEFT && this.x > -500) {
-      this.moveLeft();
-      this.playWalkingSound();
-      this.otherDirection = true;
-    }
-
-    if (
-      (this.world.keyboard.UP || this.world.keyboard.SPACE) &&
-      !this.isAboveGround()
-    ) {
-      this.jump();
-      this.playJumpingSound();
-    }
   }
 
   updateCameraPosition() {
