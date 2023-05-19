@@ -112,21 +112,33 @@ class Character extends MovableObject {
     const { level_end_x } = level;
 
     if (RIGHT && this.x < level_end_x) {
-      this.moveRight();
-      this.otherDirection = false;
-      this.playWalkingSound();
+      this.handleMoveRight();
     }
 
     if (LEFT && this.x > -500) {
-      this.moveLeft();
-      this.playWalkingSound();
-      this.otherDirection = true;
+      this.handleMoveLeft();
     }
 
     if ((UP || SPACE) && !this.isAboveGround()) {
-      this.jump();
-      this.playJumpingSound();
+      this.handleJump();
     }
+  }
+
+  handleMoveRight() {
+    this.moveRight();
+    this.otherDirection = false;
+    this.playWalkingSound();
+  }
+
+  handleMoveLeft() {
+    this.moveLeft();
+    this.playWalkingSound();
+    this.otherDirection = true;
+  }
+
+  handleJump() {
+    this.jump();
+    this.playJumpingSound();
   }
 
   intervalMovments() {
@@ -161,12 +173,31 @@ class Character extends MovableObject {
    *
    */
   playDead() {
-    this.playAnimation(this.IMAGES_DEAD);
+    this.blockLeftMovement();
+    this.blockRightMovement();
+    this.blockJumpMovement();
+    this.playAnimationDead(this.IMAGES_DEAD);
     this.playLostSound();
     setTimeout(() => {
       clearInterval(this.interval);
     }, 300);
     this.world.gameOver = true;
+  }
+
+  blockLeftMovement() {
+    // Set left movement control to false or disable the left movement functionality
+    this.world.keyboard.LEFT = false;
+  }
+
+  blockRightMovement() {
+    // Set right movement control to false or disable the right movement functionality
+    this.world.keyboard.RIGHT = false;
+  }
+
+  blockJumpMovement() {
+    // Set jump control to false or disable the jump functionality
+    this.world.keyboard.UP = false;
+    this.world.keyboard.SPACE = false;
   }
 
   /**
