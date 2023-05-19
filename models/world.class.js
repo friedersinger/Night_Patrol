@@ -122,24 +122,42 @@ class World {
    */
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (
-        this.character.isColliding(enemy) &&
-        this.character.speedY >= 0 &&
-        !enemy.isDead
-      ) {
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
-        // console.log("Collision with character, energy ", this.character.energy);
+      if (this.isCharacterCollidingWithEnemy(enemy)) {
+        this.handleCollisionWithEnemy();
       }
     });
 
     this.level.endboss.forEach((endboss) => {
-      if (this.character.isColliding(endboss) && this.endboss.energy > 0) {
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
-        //console.log('Collision with character, energy ', this.character.energy);
+      if (this.isCharacterCollidingWithEndboss(endboss)) {
+        this.handleCollisionWithEndboss();
       }
     });
+  }
+
+  isCharacterCollidingWithEnemy(enemy) {
+    return (
+      this.character.isColliding(enemy) &&
+      this.character.speedY >= 0 &&
+      !enemy.isDead
+    );
+  }
+
+  isCharacterCollidingWithEndboss(endboss) {
+    return this.character.isColliding(endboss) && endboss.energy > 0;
+  }
+
+  handleCollisionWithEnemy() {
+    this.character.hit();
+    this.updateStatusBar();
+  }
+
+  handleCollisionWithEndboss() {
+    this.character.hit();
+    this.updateStatusBar();
+  }
+
+  updateStatusBar() {
+    this.statusBar.setPercentage(this.character.energy);
   }
 
   /**

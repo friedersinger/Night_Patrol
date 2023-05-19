@@ -4,6 +4,7 @@ let keyboard = new Keyboard();
 let soundIsOn = false;
 
 let start_sound = new Audio("audio/start-sound.mp3");
+let background_sound = new Audio("audio/background-ambiente.mp3");
 
 /**
  * Initializes the game, creating the world and canvas.
@@ -18,6 +19,7 @@ function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   playSound();
+  playBackground();
   bindBtnPressEvents();
 
   // console.log("My Character is", world.character);
@@ -143,26 +145,18 @@ function exitFullscreen() {
 }
 
 /**
- * This function checks if sound is enabled and plays the start sound if it is.
- *
- *
- */
-function playSound() {
-  if (soundIsOn) {
-    start_sound.play();
-  }
-}
-
-/**
  * This function sets sound on and updates the corresponding HTML elements.
  *
  *
  */
-function soundOn() {
+function turnSoundOn() {
   document.getElementById("soundOff").style.display = "none";
   document.getElementById("soundStartOff").style.display = "none";
   soundIsOn = true;
-  world.soundOn = true;
+  if (world) {
+    world.soundOn = true;
+  }
+  playBackground();
 }
 
 /**
@@ -174,5 +168,27 @@ function soundOff() {
   document.getElementById("soundOff").style.display = "block";
   document.getElementById("soundStartOff").style.display = "block";
   soundIsOn = false;
-  world.soundOn = false;
+  if (world) {
+    world.soundOn = false;
+  }
+  start_sound.pause();
+  background_sound.pause(); // Pause the background sound
+}
+
+/**
+ * This function checks if sound is enabled and plays the start sound if it is.
+ *
+ *
+ */
+function playSound() {
+  if (soundIsOn) {
+    start_sound.play();
+  }
+}
+
+function playBackground() {
+  if (soundIsOn) {
+    background_sound.loop = true;
+    background_sound.play();
+  }
 }

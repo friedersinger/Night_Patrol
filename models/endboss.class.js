@@ -71,7 +71,7 @@ class Endboss extends MovableObject {
     let IDOfInterval = setInterval(() => {
       if (this.energy == 100) {
         this.playAnimation(this.IMAGES_WALKING);
-      } else if (this.energy < 100 && this.energy > 0 && this.isAngry == true) {
+      } else if (this.energy < 100 && this.energy > 0 && this.isAngry) {
         this.playAnimation(this.IMAGES_ANGRY);
         this.speed = 2;
       } else if (this.energy <= 0) {
@@ -87,8 +87,12 @@ class Endboss extends MovableObject {
    */
   startEndboss() {
     setInterval(() => {
-      if (this.firstContactEndboss === true) {
-        this.moveToLeft();
+      if (this.firstContactEndboss) {
+        if (this.x > this.world.character.x + this.world.character.width) {
+          this.moveToLeft();
+        } else {
+          this.world.gameOver = true;
+        }
       }
     }, 20);
   }

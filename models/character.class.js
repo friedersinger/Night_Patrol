@@ -91,33 +91,10 @@ class Character extends MovableObject {
     this.animate();
   }
 
-  /**
-   * Animates the character's movement and actions based on keyboard input and state.
-   * The character can stand, walk, jump, attack, or be hurt or dead.
-   *
-   */
   animate() {
     setInterval(() => {
-      this.walking_sound.pause();
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        this.otherDirection = false;
-        this.playWalkingSound();
-      }
-      if (this.world.keyboard.LEFT && this.x > -500) {
-        this.moveLeft();
-        this.playWalkingSound();
-        this.otherDirection = true;
-      }
-      if (
-        (this.world.keyboard.UP || this.world.keyboard.SPACE) &&
-        !this.isAboveGround()
-      ) {
-        this.jump();
-        this.playJumpingSound();
-      }
-
-      this.world.camera_x = -this.x + 100;
+      this.handleMovement();
+      this.updateCameraPosition();
     }, 1000 / 60);
 
     setInterval(() => {
@@ -132,14 +109,45 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_ATTACK);
         this.playWaterBomb();
       } else {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          //walk animation
+        if (this.isWalking()) {
           this.playAnimation(this.IMAGES_WALKING);
         } else {
           this.playAnimation(this.IMAGES_STAND);
         }
       }
     }, 50);
+  }
+
+  isWalking() {
+    return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+  }
+
+  handleMovement() {
+    this.walking_sound.pause();
+
+    if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+      this.moveRight();
+      this.otherDirection = false;
+      this.playWalkingSound();
+    }
+
+    if (this.world.keyboard.LEFT && this.x > -500) {
+      this.moveLeft();
+      this.playWalkingSound();
+      this.otherDirection = true;
+    }
+
+    if (
+      (this.world.keyboard.UP || this.world.keyboard.SPACE) &&
+      !this.isAboveGround()
+    ) {
+      this.jump();
+      this.playJumpingSound();
+    }
+  }
+
+  updateCameraPosition() {
+    this.world.camera_x = -this.x + 100;
   }
 
   /**

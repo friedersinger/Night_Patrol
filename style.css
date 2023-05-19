@@ -143,6 +143,7 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .soundStart {
@@ -178,6 +179,12 @@ canvas {
   align-items: center;
   justify-content: space-around;
   height: 50px;
+}
+
+.turnDevice {
+  display: none;
+  font-size: 21px;
+  margin-top: 20px;
 }
 
 .controll-keys {
@@ -463,6 +470,10 @@ canvas {
 
   .play-buttons img {
     height: 20px;
+  }
+
+  .turnDevice {
+    display: flex;
   }
 }
 
