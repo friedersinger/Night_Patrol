@@ -152,6 +152,18 @@ class MovableObject extends DrawableObject {
     this.currentImage++;
   }
 
+  playAnimationDead(images) {
+    let i = this.currentImage % images.length;
+    let path = images[i];
+    this.img = this.imageCache[path];
+    this.currentImage++;
+
+    if (this.currentImage >= images.length) {
+      // Animation has reached the last picture, stop here
+      this.currentImage = images.length - 1;
+    }
+  }
+
   /**
    * Moves the object to the right
    *
