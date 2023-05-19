@@ -32,7 +32,18 @@ function init() {
  */
 function replay() {
   world.clearAllIntervals();
-  window.location.href = "index.html";
+  // window.location.href = "index.html";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("startScreen").style.display = "block";
+  init();
+}
+
+function menu() {
+  world.clearAllIntervals();
+  // window.location.href = "index.html";
+  document.getElementById("endScreen").style.display = "none";
+  document.getElementById("startScreen").style.display = "block";
+  document.getElementById("game").style.display = "none";
 }
 
 window.addEventListener("keydown", (e) => {

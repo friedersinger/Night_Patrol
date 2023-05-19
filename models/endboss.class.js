@@ -82,7 +82,7 @@ class Endboss extends MovableObject {
 
   /**
    * if character is near enough the endboss starts walking
-   *
+   * if the character is behind the endboss it is gameover
    *
    */
   startEndboss() {
@@ -90,7 +90,7 @@ class Endboss extends MovableObject {
       if (this.firstContactEndboss) {
         if (this.x > this.world.character.x + this.world.character.width) {
           this.moveToLeft();
-        } else {
+        } else if (this.world.character.x > this.x + this.width) {
           this.world.gameOver = true;
         }
       }

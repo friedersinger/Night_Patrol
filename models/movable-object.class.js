@@ -91,6 +91,21 @@ class MovableObject extends DrawableObject {
   }
 
   /**
+   * Decrease energy by hitting endboss and update last hit time
+   *
+   *
+   */
+  hitEndboss() {
+    this.energy -= 30;
+
+    if (this.energy < 0) {
+      this.energy = 0;
+    } else {
+      this.lastHit = new Date().getTime();
+    }
+  }
+
+  /**
    * Checks if the character is hurt by comparing the time since the last hit to 0.5 seconds
    *
    * @returns {boolean} Returns true if the time since the last hit is under 0.5 seconds, false otherwise.

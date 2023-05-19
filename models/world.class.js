@@ -152,7 +152,7 @@ class World {
   }
 
   handleCollisionWithEndboss() {
-    this.character.hit();
+    this.character.hitEndboss();
     this.updateStatusBar();
   }
 
