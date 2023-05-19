@@ -88,11 +88,10 @@ class Endboss extends MovableObject {
   startEndboss() {
     setInterval(() => {
       if (this.firstContactEndboss) {
-        if (this.x > this.world.character.x + this.world.character.width) {
-          this.moveToLeft();
-        } else if (this.world.character.x > this.x + this.width) {
-          this.world.gameOver = true;
-        }
+        // if (this.x > this.world.character.x + this.world.character.width) {
+        this.moveToLeft();
+      } else if (this.world.character.x > this.x + this.width) {
+        this.world.gameOver = true;
       }
     }, 20);
   }
