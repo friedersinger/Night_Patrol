@@ -19,6 +19,13 @@ class Fullscreen extends DrawableObject {
   }
 
   handleClick(event) {
+    const { width, height } = window.screen;
+
+    if (height > width) {
+      alert("Please rotate your device to landscape mode.");
+      return;
+    }
+
     if (this.isClicked(event.offsetX, event.offsetY)) {
       if (this.isFullscreen) {
         exitFullscreen();

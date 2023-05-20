@@ -91,13 +91,19 @@ class World {
    * Ensures that the player has collected Waterbombs before throwing them.
    *
    */
+  isDKeyPressed = false;
+
   checkThrowObjects() {
     if (
       this.keyboard.D &&
+      !this.isDKeyPressed &&
       this.collectedWaterbombs > 0 &&
-      this.character.otherDirection == false
+      !this.character.otherDirection
     ) {
       this.throwThisWaterbomb();
+      this.isDKeyPressed = true;
+    } else if (!this.keyboard.D) {
+      this.isDKeyPressed = false;
     }
   }
 
@@ -225,7 +231,7 @@ class World {
    */
   waterbombHitEndboss(index) {
     this.hitOneTime = true;
-    this.endboss.energy -= 10;
+    this.endboss.energy -= 20;
     this.throwableObjects[index].waterbombHittedEndboss = true;
     this.playSplashWaterbomb();
     this.endboss.isAngry = true;
