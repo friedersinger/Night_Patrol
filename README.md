@@ -2,6 +2,10 @@
 
 Night Patrol is an HTML-based game designed to run in a web browser. It features an immersive gameplay experience where players control a character navigating through a level, avoiding enemies, collecting coins, and defeating bosses.
 
+## Demo
+
+You can play the game by visiting [night-patrol.netlify.app](night-patrol.netlify.app). Give it a try and see how far you can go!
+
 ## Game Components
 
 ### HTML Structure
