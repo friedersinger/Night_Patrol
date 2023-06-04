@@ -9,8 +9,6 @@ class Gangster extends MovableObject {
     "img/gangster/png/3/walk/3_terrorist_3_Walk_003.png",
     "img/gangster/png/3/walk/3_terrorist_3_Walk_004.png",
     "img/gangster/png/3/walk/3_terrorist_3_Walk_005.png",
-    // "img/gangster/png/3/walk/3_terrorist_3_Walk_006.png",
-    // "img/gangster/png/3/walk/3_terrorist_3_Walk_007.png",
   ];
   IMAGE_DEATH = ["img/gangster/png/3/hurt/3_terrorist_3_Hurt_008.png"];
   isDead = false;
@@ -48,7 +46,7 @@ class Gangster extends MovableObject {
       if (this.isDead) {
         this.playAnimation(this.IMAGE_DEATH);
       }
-      // Chicken WALKING
+      // gangster WALKING
       else {
         this.playAnimation(this.IMAGES_WALKING);
       }
